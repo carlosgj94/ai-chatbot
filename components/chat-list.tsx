@@ -8,13 +8,18 @@ export interface ChatList {
 }
 
 export function ChatList({ messages }: ChatList) {
-  if (!messages.length) {
-    return null
+  if (messages.length === 1) {
+    let situationDescription: Message = {
+      id: '1',
+      role: 'assistant',
+      content: '<<You are walking in the unknown street and you find an old lady that seemed dispersed looking at the horizon. Something seems odd, you should ask her.>>'
+    }
+    messages.unshift(situationDescription)
   }
 
   return (
     <div className="relative mx-auto max-w-2xl px-4">
-      {messages.map((message, index) => (
+      {messages.filter(m => m.role !== 'system').map((message, index) => (
         <div key={index}>
           <ChatMessage message={message} />
           {index < messages.length - 1 && (

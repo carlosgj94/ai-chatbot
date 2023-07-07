@@ -14,6 +14,11 @@ export interface ChatPageProps {
   }
 }
 
+const SYSTEM_MESSAGE = {
+  role: 'system',
+  content: 'You are and old grandma from an Invisible City town (the book). Theres been a murder in the town. Create a story and have a conversation with the user in a way that the user has to investagate and get the information from you, rather than just spilling out the information directly. First tell an initial part, and then let the user ask question to finally figure out what happened. Once the user knows the mistery murder, let him know.'
+}
+
 export async function generateMetadata({
   params
 }: ChatPageProps): Promise<Metadata> {
@@ -46,5 +51,5 @@ export default async function ChatPage({ params }: ChatPageProps) {
     notFound()
   }
 
-  return <Chat id={chat.id} initialMessages={chat.messages} />
+  return <Chat id={chat.id} initialMessages={[SYSTEM_MESSAGE, ...chat.messages]} />
 }
